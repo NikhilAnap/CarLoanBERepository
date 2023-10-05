@@ -28,9 +28,9 @@ public class EnquiryServiceImpl implements EnquiryService {
 	}
 
 	@Override
-	public EnquiryDetails getSingleEnquiry(int enquiryId) {
+	public EnquiryDetails getSingleEnquiry(int id) {
 
-		Optional<EnquiryDetails> enquiry = enquiryRepository.findById(enquiryId);
+		Optional<EnquiryDetails> enquiry = enquiryRepository.findById(id);
 
 		if (enquiry.isPresent()) {
 
@@ -42,25 +42,25 @@ public class EnquiryServiceImpl implements EnquiryService {
 	}
 
 	@Override
-	public void deleteEnquiry(int enquiryId) {
+	public void deleteEnquiry(int id) {
 
-		enquiryRepository.deleteById(enquiryId);
+		enquiryRepository.deleteById(id);
 
 	}
 
 	@Override
-	public void saveCibil(EnquiryDetails enquiryDetails, String customerPanno, int enquiryId) {
+	public void saveCibil(EnquiryDetails enquiryDetails, String customerPanno, int id) {
 
-		enquiryDetails.setEnquiryId(enquiryId);
+		enquiryDetails.setId(id);
 
 		enquiryRepository.save(enquiryDetails);
 
 	}
 
 	@Override
-	public EnquiryDetails updateEnquiry(int enquiryId, EnquiryDetails enquiryDetails) {
+	public EnquiryDetails updateEnquiry(int id, EnquiryDetails enquiryDetails) {
 
-		enquiryDetails.setEnquiryId(enquiryId);
+		enquiryDetails.setId(id);
 
 		return enquiryRepository.save(enquiryDetails);
 	}

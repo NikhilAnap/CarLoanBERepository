@@ -8,12 +8,12 @@ public interface EnquiryService {
 
 	public Iterable<EnquiryDetails> getAllEnquiry();
 
-	public EnquiryDetails getSingleEnquiry(int enquiryId);
+	public EnquiryDetails getSingleEnquiry(int id);
 
-	public void deleteEnquiry(int enquiryId);
+	public void deleteEnquiry(int id);
 
-	public void saveCibil(EnquiryDetails enquiryDetails, String customerPanno, int enquiryId);
+	public void saveCibil(EnquiryDetails enquiryDetails, String customerPanno, int id);
 
-	public EnquiryDetails updateEnquiry(int enquiryId, EnquiryDetails enquiryDetails);
+	public EnquiryDetails updateEnquiry(int id, EnquiryDetails enquiryDetails);
 
 }

@@ -20,7 +20,7 @@ public class EnquiryDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int enquiryId;
+	private int id;
 	private String customerName;
 	private String customerEmail;
 	private long customerAadharno;

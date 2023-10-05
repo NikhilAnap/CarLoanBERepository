@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import com.cjc.main.service.EnquiryService;
 
 @RestController
 @RequestMapping("/enquiry")
+@CrossOrigin("*")
 public class EnquiryController {
 
 	@Autowired
@@ -44,29 +46,29 @@ public class EnquiryController {
 
 	}
 
-	@GetMapping("/getSingle_enquiry/{enquiryId}")
-	public ResponseEntity<EnquiryDetails> getSingleEnquiry(@PathVariable int enquiryId) {
+	@GetMapping("/getSingle_enquiry/{id}")
+	public ResponseEntity<EnquiryDetails> getSingleEnquiry(@PathVariable int id) {
 
-		EnquiryDetails enquiry = enquiryService.getSingleEnquiry(enquiryId);
+		EnquiryDetails enquiry = enquiryService.getSingleEnquiry(id);
 
 		return new ResponseEntity<EnquiryDetails>(enquiry, HttpStatus.OK);
 
 	}
 
-	@PutMapping("/update_enquiry/{enquiryId}")
-	public ResponseEntity<EnquiryDetails> updateEnquiry(@PathVariable int enquiryId,
+	@PutMapping("/update_enquiry/{id}")
+	public ResponseEntity<EnquiryDetails> updateEnquiry(@PathVariable int id,
 			@RequestBody EnquiryDetails enquiryDetails) {
 
-		EnquiryDetails enquiry = enquiryService.updateEnquiry(enquiryId, enquiryDetails);
+		EnquiryDetails enquiry = enquiryService.updateEnquiry(id, enquiryDetails);
 
 		return new ResponseEntity<EnquiryDetails>(enquiry, HttpStatus.OK);
 
 	}
 
-	@DeleteMapping("/delete_enquiry/{enquiryId}")
-	public ResponseEntity<String> deleteEnquiry(@PathVariable int enquiryId) {
+	@DeleteMapping("/delete_enquiry/{id}")
+	public ResponseEntity<String> deleteEnquiry(@PathVariable int id) {
 
-		enquiryService.deleteEnquiry(enquiryId);
+		enquiryService.deleteEnquiry(id);
 
 		return new ResponseEntity<String>("Enquiry Deleted!!!", HttpStatus.OK);
 
@@ -83,7 +85,7 @@ public class EnquiryController {
 
 			if (customerPanno.equals(enquiryDetails.getCustomerPanno())) {
 
-				int enquiryId = enquiryDetails.getEnquiryId();
+				int enquiryId = enquiryDetails.getId();
 
 				int min = 600;
 				int max = 900;
