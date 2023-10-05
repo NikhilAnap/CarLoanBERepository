@@ -18,12 +18,12 @@ public class EmployeeLocalAddress {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int employeeLocalAddressId;
-	private String employeeLState;
-	private String employeeLDistrict;
-	private String employeeLCity;
-	private String employeeLArea;
-	private String employeeLLandmark;
-	private long employeeLPinCode;
+	private String employeeState;
+	private String employeeDistrict;
+	private String employeeCity;
+	private String employeeArea;
+	private String employeeLandmark;
+	private long employeePinCode;
 
 
 }
