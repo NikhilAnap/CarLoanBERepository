@@ -95,46 +95,46 @@ public class EnquiryController {
 				if (cibilScore < 700) {
 
 					customerCibilDetails.setCibilScore(cibilScore);
-					customerCibilDetails.setCibilStatus("CIBIL_BAD");
+					customerCibilDetails.setCibilStatus("Cibil Bad");
 
 					enquiryDetails.setCustomerCibilDetails(customerCibilDetails);
 
 					enquiryService.saveCibil(enquiryDetails, customerPanno, enquiryId);
 
-					return new ResponseEntity<String>("CIBIL_BAD", HttpStatus.OK);
+					return new ResponseEntity<String>("Cibil Bad", HttpStatus.OK);
 
 				} else if (cibilScore > 699 && cibilScore < 750) {
 
 					customerCibilDetails.setCibilScore(cibilScore);
-					customerCibilDetails.setCibilStatus("CIBIL_GOOD");
+					customerCibilDetails.setCibilStatus("Cibil Good");
 
 					enquiryDetails.setCustomerCibilDetails(customerCibilDetails);
 
 					enquiryService.saveCibil(enquiryDetails, customerPanno, enquiryId);
 
-					return new ResponseEntity<String>("CIBIL_GOOD", HttpStatus.OK);
+					return new ResponseEntity<String>("Cibil Good", HttpStatus.OK);
 
 				} else if (cibilScore > 749 && cibilScore < 800) {
 
 					customerCibilDetails.setCibilScore(cibilScore);
-					customerCibilDetails.setCibilStatus("CIBIL_BEST");
+					customerCibilDetails.setCibilStatus("Cibil Best");
 
 					enquiryDetails.setCustomerCibilDetails(customerCibilDetails);
 
 					enquiryService.saveCibil(enquiryDetails, customerPanno, enquiryId);
 
-					return new ResponseEntity<String>("CIBIL_BEST", HttpStatus.OK);
+					return new ResponseEntity<String>("Cibil Best", HttpStatus.OK);
 
 				} else {
 
 					customerCibilDetails.setCibilScore(cibilScore);
-					customerCibilDetails.setCibilStatus("CIBIL_EXCELLENT");
+					customerCibilDetails.setCibilStatus("Cibil Excellent");
 
 					enquiryDetails.setCustomerCibilDetails(customerCibilDetails);
 
 					enquiryService.saveCibil(enquiryDetails, customerPanno, enquiryId);
 
-					return new ResponseEntity<String>("CIBIL_EXCELLENT", HttpStatus.OK);
+					return new ResponseEntity<String>("Cibil Excellent", HttpStatus.OK);
 
 				}
 			}

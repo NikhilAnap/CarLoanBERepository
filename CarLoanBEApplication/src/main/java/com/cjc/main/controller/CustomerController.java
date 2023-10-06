@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cjc.main.model.Customer;
 import com.cjc.main.service.CustomerService;
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/customer")
