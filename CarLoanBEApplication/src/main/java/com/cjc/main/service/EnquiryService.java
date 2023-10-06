@@ -16,4 +16,7 @@ public interface EnquiryService {
 
 	public EnquiryDetails updateEnquiry(int id, EnquiryDetails enquiryDetails);
 
+	public void saveByStatus(int enquiryId, EnquiryDetails enquiryDetails);
+
+
 }

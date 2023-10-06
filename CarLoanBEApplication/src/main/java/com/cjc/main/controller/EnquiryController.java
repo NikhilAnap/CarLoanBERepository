@@ -20,9 +20,9 @@ import com.cjc.main.model.CustomerCibilDetails;
 import com.cjc.main.model.EnquiryDetails;
 import com.cjc.main.service.EnquiryService;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/enquiry")
-@CrossOrigin("*")
 public class EnquiryController {
 
 	@Autowired
@@ -78,8 +78,6 @@ public class EnquiryController {
 	public ResponseEntity<String> checkCibilScore(@PathVariable String customerPanno) {
 
 		Iterable<EnquiryDetails> enquiries = enquiryService.getAllEnquiry();
-
-		System.out.println(customerPanno);
 
 		for (EnquiryDetails enquiryDetails : enquiries) {
 
@@ -187,5 +185,7 @@ public class EnquiryController {
 		return null;
 
 	}
+	
+	
 
 }
