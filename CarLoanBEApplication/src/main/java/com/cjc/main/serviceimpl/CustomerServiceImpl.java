@@ -212,4 +212,16 @@ public class CustomerServiceImpl implements CustomerService {
 
 	}
 
+	@Override
+	public void updateCustomerStatus(Customer customer) {
+		
+		System.out.println(customer);
+		Customer cust=customerRepository.findAllByCustomerId(customer.getCustomerId());
+		
+		System.out.println(cust);
+		cust.setApplicationStatus(customer.getApplicationStatus());
+		
+		customerRepository.save(cust);
+	}
+
 }

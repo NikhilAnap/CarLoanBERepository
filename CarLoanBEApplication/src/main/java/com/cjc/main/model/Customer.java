@@ -26,6 +26,8 @@ public class Customer {
 	private long customerAadharno;
 	private String customerPanno;
 	private long customerMobileno;
+	private String applicationStatus;
+	
 	@Column(unique = true)
 	private String customerUsername;
 	@Column(unique = true)

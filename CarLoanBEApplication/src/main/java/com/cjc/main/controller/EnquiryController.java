@@ -32,7 +32,6 @@ public class EnquiryController {
 	public ResponseEntity<EnquiryDetails> saveEnquiry(@RequestBody EnquiryDetails enquiryDetails) {
 
 		EnquiryDetails enquiry = enquiryService.saveEnquiry(enquiryDetails);
-
 		return new ResponseEntity<EnquiryDetails>(enquiry, HttpStatus.CREATED);
 
 	}
@@ -41,18 +40,16 @@ public class EnquiryController {
 	public ResponseEntity<Iterable<EnquiryDetails>> getAllEnquiry() {
 
 		Iterable<EnquiryDetails> enquiries = enquiryService.getAllEnquiry();
-
 		return new ResponseEntity<Iterable<EnquiryDetails>>(enquiries, HttpStatus.OK);
 
 	}
 
 	@GetMapping("/getSingle_enquiry/{id}")
 	public ResponseEntity<EnquiryDetails> getSingleEnquiry(@PathVariable int id) {
-
+		
 		EnquiryDetails enquiry = enquiryService.getSingleEnquiry(id);
-
 		return new ResponseEntity<EnquiryDetails>(enquiry, HttpStatus.OK);
-
+		
 	}
 
 	@PutMapping("/update_enquiry/{id}")
@@ -75,11 +72,20 @@ public class EnquiryController {
 	}
 
 	@PutMapping("/check_cibil/{customerPanno}")
-	public ResponseEntity<String> checkCibilScore(@PathVariable String customerPanno) {
+	public ResponseEntity<EnquiryDetails> checkCibilScore(@PathVariable String customerPanno) {
 
 		Iterable<EnquiryDetails> enquiries = enquiryService.getAllEnquiry();
 
+		
+		EnquiryDetails enqr=new EnquiryDetails();
+		System.out.println(customerPanno);
+		
 		for (EnquiryDetails enquiryDetails : enquiries) {
+
+		
+
+//		for (EnquiryDetails enquiryDetails : enquiries){
+
 
 			if (customerPanno.equals(enquiryDetails.getCustomerPanno())) {
 
@@ -99,9 +105,10 @@ public class EnquiryController {
 
 					enquiryDetails.setCustomerCibilDetails(customerCibilDetails);
 
-					enquiryService.saveCibil(enquiryDetails, customerPanno, enquiryId);
+					EnquiryDetails enq= enquiryService.saveCibil(enquiryDetails, customerPanno, enquiryId);
 
-					return new ResponseEntity<String>("Cibil Bad", HttpStatus.OK);
+
+					return new ResponseEntity<EnquiryDetails>(enq, HttpStatus.OK);
 
 				} else if (cibilScore > 699 && cibilScore < 750) {
 
@@ -110,9 +117,11 @@ public class EnquiryController {
 
 					enquiryDetails.setCustomerCibilDetails(customerCibilDetails);
 
-					enquiryService.saveCibil(enquiryDetails, customerPanno, enquiryId);
+					EnquiryDetails enq= enquiryService.saveCibil(enquiryDetails, customerPanno, enquiryId);
 
-					return new ResponseEntity<String>("Cibil Good", HttpStatus.OK);
+
+					return new ResponseEntity<EnquiryDetails>(enq, HttpStatus.OK);
+
 
 				} else if (cibilScore > 749 && cibilScore < 800) {
 
@@ -121,9 +130,11 @@ public class EnquiryController {
 
 					enquiryDetails.setCustomerCibilDetails(customerCibilDetails);
 
-					enquiryService.saveCibil(enquiryDetails, customerPanno, enquiryId);
+					EnquiryDetails enq= enquiryService.saveCibil(enquiryDetails, customerPanno, enquiryId);
 
-					return new ResponseEntity<String>("Cibil Best", HttpStatus.OK);
+
+					return new ResponseEntity<EnquiryDetails>(enq, HttpStatus.OK);
+
 
 				} else {
 
@@ -132,15 +143,15 @@ public class EnquiryController {
 
 					enquiryDetails.setCustomerCibilDetails(customerCibilDetails);
 
-					enquiryService.saveCibil(enquiryDetails, customerPanno, enquiryId);
+					EnquiryDetails enq= enquiryService.saveCibil(enquiryDetails, customerPanno, enquiryId);
 
-					return new ResponseEntity<String>("Cibil Excellent", HttpStatus.OK);
+					return new ResponseEntity<EnquiryDetails>(enq, HttpStatus.OK);
 
 				}
 			}
 		}
 
-		return new ResponseEntity<String>("Enter Valid Pan Number!!!", HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<EnquiryDetails>(enqr, HttpStatus.OK);
 
 	}
 

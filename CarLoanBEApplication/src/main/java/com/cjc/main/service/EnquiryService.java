@@ -12,7 +12,7 @@ public interface EnquiryService {
 
 	public void deleteEnquiry(int id);
 
-	public void saveCibil(EnquiryDetails enquiryDetails, String customerPanno, int id);
+	public EnquiryDetails  saveCibil(EnquiryDetails enquiryDetails, String customerPanno, int id);
 
 	public EnquiryDetails updateEnquiry(int id, EnquiryDetails enquiryDetails);
 

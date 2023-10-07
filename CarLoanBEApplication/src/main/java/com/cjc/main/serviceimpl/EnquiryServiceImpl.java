@@ -58,11 +58,11 @@ public class EnquiryServiceImpl implements EnquiryService {
 	}
 
 	@Override
-	public void saveCibil(EnquiryDetails enquiryDetails, String customerPanno, int id) {
+	public EnquiryDetails saveCibil(EnquiryDetails enquiryDetails, String customerPanno, int id) {
 
 		enquiryDetails.setId(id);
 
-		enquiryRepository.save(enquiryDetails);
+		return enquiryRepository.save(enquiryDetails);
 
 	}
 

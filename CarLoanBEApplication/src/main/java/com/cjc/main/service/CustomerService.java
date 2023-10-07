@@ -24,4 +24,8 @@ public interface CustomerService {
 			MultipartFile customerDrivingLicense, MultipartFile customerBankStatement,
 			MultipartFile customerCarQuotation, MultipartFile customerForm16, MultipartFile customerITR);
 
+
+
+	public void updateCustomerStatus(Customer customer);
+
 }
