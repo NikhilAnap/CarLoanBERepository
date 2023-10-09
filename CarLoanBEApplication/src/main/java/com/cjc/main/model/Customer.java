@@ -27,7 +27,6 @@ public class Customer {
 	private String customerPanno;
 	private long customerMobileno;
 	private String applicationStatus;
-	
 	@Column(unique = true)
 	private String customerUsername;
 	@Column(unique = true)
@@ -42,5 +41,7 @@ public class Customer {
 	private CustomerBankDetails customerBankDetails;
 	@OneToOne(cascade = CascadeType.ALL)
 	private CustomerDocuments customerDocuments;
+	@OneToOne(cascade = CascadeType.ALL)
+	private SanctionDetails sanctionDetails;
 
 }
