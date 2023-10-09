@@ -3,6 +3,7 @@ package com.cjc.main.service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cjc.main.model.Customer;
+import com.cjc.main.model.SanctionDetails;
 
 public interface CustomerService {
 
@@ -27,5 +28,7 @@ public interface CustomerService {
 
 
 	public void updateCustomerStatus(Customer customer);
+
+	public void updateCustomerSanctionDetails(int customerId, SanctionDetails sanctionDetails);
 
 }

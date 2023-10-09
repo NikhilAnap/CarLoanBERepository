@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cjc.main.model.Customer;
+import com.cjc.main.model.SanctionDetails;
 import com.cjc.main.service.CustomerService;
 
 @CrossOrigin("*")
@@ -101,6 +102,15 @@ public class CustomerController {
 		return new ResponseEntity<String>("Customer Updated Successfully!!!", HttpStatus.OK);
 	}
 
+	@PutMapping("/update_customer_SanctionDetails/{customerId}")
+	public ResponseEntity<String> updateCustomerSanctionDetails(@PathVariable int customerId,@RequestBody SanctionDetails sanctionDetails)
+	{
+		System.err.println(customerId);
+		System.err.println(sanctionDetails);
+		customerService.updateCustomerSanctionDetails(customerId,sanctionDetails);
+		return new ResponseEntity<String>("Customer Updated Successfully!!!", HttpStatus.OK);
+	}
+	
 	@DeleteMapping("/delete_customer/{customerId}")
 	public ResponseEntity<String> deleteCustomer(@PathVariable int customerId) {
 

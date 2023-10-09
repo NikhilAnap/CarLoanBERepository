@@ -17,6 +17,7 @@ import com.cjc.main.model.CustomerDocuments;
 import com.cjc.main.model.CustomerLocalAddress;
 import com.cjc.main.model.CustomerPermanentAddress;
 import com.cjc.main.model.EnquiryDetails;
+import com.cjc.main.model.SanctionDetails;
 import com.cjc.main.repository.CustomerRepository;
 import com.cjc.main.service.CustomerService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -218,6 +219,16 @@ public class CustomerServiceImpl implements CustomerService {
 		Customer cust = customerRepository.findAllByCustomerId(customer.getCustomerId());
 
 		cust.setApplicationStatus(customer.getApplicationStatus());
+
+		customerRepository.save(cust);
+	}
+
+	@Override
+	public void updateCustomerSanctionDetails(int customerId, SanctionDetails sanctionDetails) {
+		
+		Customer cust = customerRepository.findAllByCustomerId(customerId);
+		
+		cust.setSanctionDetails(sanctionDetails);
 
 		customerRepository.save(cust);
 	}
