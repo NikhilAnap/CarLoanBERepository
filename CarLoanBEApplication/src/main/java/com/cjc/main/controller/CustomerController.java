@@ -107,14 +107,14 @@ public class CustomerController {
 	}
 
 	@PutMapping("/update_customer_SanctionDetails/{customerId}")
-	public ResponseEntity<String> updateCustomerSanctionDetails(@PathVariable int customerId,@RequestBody SanctionDetails sanctionDetails)
-	{
+	public ResponseEntity<String> updateCustomerSanctionDetails(@PathVariable int customerId,
+			@RequestBody SanctionDetails sanctionDetails) {
 		System.err.println(customerId);
 		System.err.println(sanctionDetails);
-		customerService.updateCustomerSanctionDetails(customerId,sanctionDetails);
+		customerService.updateCustomerSanctionDetails(customerId, sanctionDetails);
 		return new ResponseEntity<String>("Customer Updated Successfully!!!", HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("/delete_customer/{customerId}")
 	public ResponseEntity<String> deleteCustomer(@PathVariable int customerId) {
 
@@ -138,7 +138,7 @@ public class CustomerController {
 
 	}
 
-	@PutMapping("/send_sanction_letter/{customerId}")
+	@GetMapping("/send_sanction_letter/{customerId}")
 	public ResponseEntity<String> sendSanctionLetter(@PathVariable int customerId) {
 
 		customerService.sendSanctionLetter(customerId);
@@ -146,7 +146,5 @@ public class CustomerController {
 		return new ResponseEntity<String>("Sanction Letter Send!!!", HttpStatus.OK);
 
 	}
-
-	
 
 }

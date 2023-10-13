@@ -23,6 +23,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cjc.main.controller.CustomerController;
 import com.cjc.main.model.Customer;
 import com.cjc.main.model.CustomerBankDetails;
 import com.cjc.main.model.CustomerDocuments;
@@ -343,17 +344,20 @@ public class CustomerServiceImpl implements CustomerService {
 
 		application.setPhrase(new Phrase("Sanctioned Date:"));
 		table1.addCell(application);
-		application.setPhrase(new Phrase(customer.getSanctionDetails().getAgreementDate()));
+		// customer.getSanctionDetails().getAgreementDate()
+		application.setPhrase(new Phrase());
 		table1.addCell(application);
 
 		application.setPhrase(new Phrase("Applicant Name:"));
 		table1.addCell(application);
-		application.setPhrase(new Phrase(customer.getCustomerName()));
+		// customer.getCustomerName()
+		application.setPhrase(new Phrase());
 		table1.addCell(application);
 
 		application.setPhrase(new Phrase("Mobile No.:"));
 		table1.addCell(application);
-		application.setPhrase(new Phrase(String.valueOf(customer.getCustomerMobileno())));
+		// String.valueOf(customer.getCustomerMobileno())
+		application.setPhrase(new Phrase());
 		table1.addCell(application);
 
 		doc.add(table1);
@@ -375,14 +379,16 @@ public class CustomerServiceImpl implements CustomerService {
 		loan.setFixedHeight(20f);
 		loan.setPhrase(new Phrase("Loan Amount Sanctioned:"));
 		table2.addCell(loan);
-		loan.setPhrase(new Phrase(String.valueOf(customer.getSanctionDetails().getSanctionAmount())));
+		// String.valueOf(customer.getSanctionDetails().getSanctionAmount())
+		loan.setPhrase(new Phrase());
 		table2.addCell(loan);
 
 		loan.setFixedHeight(40f);
 		loan.setPhrase(new Phrase("Reference Interest Rate:"));
 		table2.addCell(loan);
-		loan.setPhrase(new Phrase(String.valueOf(customer.getSanctionDetails().getRateOfInterest())
-				+ "% per annum (Interest Type: Floating rate of interest I Periodicity of Interest Application: Monthly)"));
+		// String.valueOf(customer.getSanctionDetails().getRateOfInterest()
+		loan.setPhrase(new Phrase(
+				"% per annum (Interest Type: Floating rate of interest I Periodicity of Interest Application: Monthly)"));
 		table2.addCell(loan);
 
 		loan.setFixedHeight(40f);
@@ -394,7 +400,8 @@ public class CustomerServiceImpl implements CustomerService {
 		loan.setFixedHeight(20f);
 		loan.setPhrase(new Phrase("Loan Tenor (In years):"));
 		table2.addCell(loan);
-		loan.setPhrase(new Phrase(String.valueOf(customer.getSanctionDetails().getTenure())));
+		// String.valueOf(customer.getSanctionDetails().getTenure())
+		loan.setPhrase(new Phrase());
 		table2.addCell(loan);
 
 		loan.setFixedHeight(20f);
@@ -442,11 +449,11 @@ public class CustomerServiceImpl implements CustomerService {
 
 		doc.close();
 
-		SanctionDetails sanctionDetails = new SanctionDetails();
+		SanctionDetails sanctionDetails = customer.getSanctionDetails();
 		sanctionDetails.setSanctionLetter(output.toByteArray());
 		customer.setSanctionDetails(sanctionDetails);
 
-		updateCustomerStatus(customer);
+		updateSanctionLetter(customer);
 
 		ByteArrayInputStream input = new ByteArrayInputStream(output.toByteArray());
 		return input;
@@ -467,7 +474,7 @@ public class CustomerServiceImpl implements CustomerService {
 			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
 
 			helper.setFrom(fromMail);
-			helper.setTo(customer.getCustomerEmail());
+			System.out.println(customer.getCustomerEmail());
 			helper.setSubject("Sanction Letter of Car Loan...");
 			helper.setText("Sanction letter of your loan application");
 			helper.addAttachment("SanctionLetter.pdf", file);
@@ -483,6 +490,20 @@ public class CustomerServiceImpl implements CustomerService {
 			e.printStackTrace();
 
 		}
+
+	}
+
+	public void updateSanctionLetter(Customer customer) {
+
+		customer.setCustomerId(customer.getCustomerId());
+
+		SanctionDetails sanctionDetails = customer.getSanctionDetails();
+
+		sanctionDetails.setSanctionId(sanctionDetails.getSanctionId());
+
+		customer.setSanctionDetails(sanctionDetails);
+
+		customerRepository.save(customer);
 
 	}
 
