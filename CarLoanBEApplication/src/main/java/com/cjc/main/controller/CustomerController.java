@@ -1,7 +1,12 @@
 package com.cjc.main.controller;
 
+import java.io.ByteArrayInputStream;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -87,17 +92,16 @@ public class CustomerController {
 			@RequestPart(name = "form16", required = false) MultipartFile customerForm16,
 			@RequestPart(name = "itr", required = false) MultipartFile customerITR) {
 
-		customerService.updateCustomer(customerId, customerProfile, customerPaddr, customerLaddr,
-				bankDetails, customerAadhar, customerPan, customerProfilePhoto, customerSignature, customerSalaryslip,
+		customerService.updateCustomer(customerId, customerProfile, customerPaddr, customerLaddr, bankDetails,
+				customerAadhar, customerPan, customerProfilePhoto, customerSignature, customerSalaryslip,
 				customerDrivingLicense, customerBankStatement, customerCarQuotation, customerForm16, customerITR);
 
 		return new ResponseEntity<String>("Customer Updated Successfully!!!", HttpStatus.OK);
 
 	}
-	
+
 	@PutMapping("/update_customer_status")
-	public ResponseEntity<String> updateCustomerStatus(@RequestBody Customer customer)
-	{
+	public ResponseEntity<String> updateCustomerStatus(@RequestBody Customer customer) {
 		customerService.updateCustomerStatus(customer);
 		return new ResponseEntity<String>("Customer Updated Successfully!!!", HttpStatus.OK);
 	}
@@ -119,5 +123,30 @@ public class CustomerController {
 		return new ResponseEntity<String>("Customer Details Deleted!!!", HttpStatus.OK);
 
 	}
+
+	@GetMapping("/generate_pdf/{customerId}")
+	public ResponseEntity<InputStreamResource> generatePdf(@PathVariable int customerId) {
+
+		ByteArrayInputStream pdfByteArrayInputStream = customerService.generatePdf(customerId);
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Content-Disposition", "inline=Sanction Letter.pdf");
+
+		InputStreamResource resource = new InputStreamResource(pdfByteArrayInputStream);
+
+		return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(resource);
+
+	}
+
+	@PutMapping("/send_sanction_letter/{customerId}")
+	public ResponseEntity<String> sendSanctionLetter(@PathVariable int customerId) {
+
+		customerService.sendSanctionLetter(customerId);
+
+		return new ResponseEntity<String>("Sanction Letter Send!!!", HttpStatus.OK);
+
+	}
+
+	
 
 }

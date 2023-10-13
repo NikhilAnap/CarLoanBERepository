@@ -1,5 +1,7 @@
 package com.cjc.main.service;
 
+import java.io.ByteArrayInputStream;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cjc.main.model.Customer;
@@ -25,10 +27,12 @@ public interface CustomerService {
 			MultipartFile customerDrivingLicense, MultipartFile customerBankStatement,
 			MultipartFile customerCarQuotation, MultipartFile customerForm16, MultipartFile customerITR);
 
-
-
 	public void updateCustomerStatus(Customer customer);
 
 	public void updateCustomerSanctionDetails(int customerId, SanctionDetails sanctionDetails);
+
+	public ByteArrayInputStream generatePdf(int customerId);
+
+	public void sendSanctionLetter(int customerId);
 
 }
