@@ -1,6 +1,7 @@
 package com.cjc.main.controller;
 
 import java.io.ByteArrayInputStream;
+import java.security.PublicKey;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -144,6 +145,24 @@ public class CustomerController {
 		customerService.sendSanctionLetter(customerId);
 
 		return new ResponseEntity<String>("Sanction Letter Send!!!", HttpStatus.OK);
+
+	}
+
+	@PutMapping("/save_disbusment/{customerId}")
+	public ResponseEntity<String> saveDisbusment(@PathVariable int customerId) {
+
+		customerService.saveDisbusment(customerId);
+
+		return new ResponseEntity<String>("Customer Disbusment Saved!!!", HttpStatus.OK);
+
+	}
+
+	@PutMapping("/save_disbusment_status/{customerId}")
+	public ResponseEntity<String> updateDisbusmentStatus(@PathVariable int customerId) {
+
+		customerService.updateDisbusmentStatus(customerId);
+
+		return new ResponseEntity<String>("Customer Disbusment Status Updated!!!", HttpStatus.OK);
 
 	}
 

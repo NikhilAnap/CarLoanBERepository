@@ -8,7 +8,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Optional;
 import java.util.Random;
 
@@ -30,6 +32,7 @@ import com.cjc.main.model.CustomerDocuments;
 import com.cjc.main.model.CustomerLocalAddress;
 import com.cjc.main.model.CustomerPermanentAddress;
 import com.cjc.main.model.EnquiryDetails;
+import com.cjc.main.model.LedgerDisbusment;
 import com.cjc.main.model.SanctionDetails;
 import com.cjc.main.repository.CustomerRepository;
 import com.cjc.main.service.CustomerService;
@@ -502,6 +505,64 @@ public class CustomerServiceImpl implements CustomerService {
 		sanctionDetails.setSanctionId(sanctionDetails.getSanctionId());
 
 		customer.setSanctionDetails(sanctionDetails);
+
+		customerRepository.save(customer);
+
+	}
+
+	@Override
+	public void saveDisbusment(int customerId) {
+
+		Date date = new Date();
+
+		// Date newDate = new Date(2023, 10, 13);
+
+		Customer customer = getSingleCustomer(customerId);
+
+		for (int i = 1; i < +customer.getSanctionDetails().getTenure(); i++) {
+
+			int paymentNumber = i;
+
+			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+			String paymentDate = format.format(date);
+
+			double principalAmount = customer.getSanctionDetails().getSanctionAmount();
+			int tenure = customer.getSanctionDetails().getTenure();
+			double interest = customer.getSanctionDetails().getRateOfInterest();
+
+			double emi = principalAmount * interest * ((1 + interest) * 120) / (((1 + interest) * 120) - 1);
+
+			double balance = principalAmount - emi;
+
+			LedgerDisbusment disbusment = new LedgerDisbusment();
+			disbusment.setPaymentNumber(paymentNumber);
+			disbusment.setLastDateOfpayment(paymentDate);
+			disbusment.setEmiPaid(emi);
+			disbusment.setStatus("Pending");
+
+			customer.getLedgerDisbusment().add(disbusment);
+
+			customerRepository.save(customer);
+
+		}
+	}
+
+	@Override
+	public void updateDisbusmentStatus(int customerId) {
+
+		Date date = new Date();
+
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		String paidDate = format.format(date);
+
+		Customer customer = customerRepository.findAllByCustomerId(customerId);
+
+		LedgerDisbusment disbusment = new LedgerDisbusment();
+
+		disbusment.setStatus("Paid");
+		disbusment.setPaidDate(paidDate);
+
+		customer.getLedgerDisbusment().add(disbusment);
 
 		customerRepository.save(customer);
 

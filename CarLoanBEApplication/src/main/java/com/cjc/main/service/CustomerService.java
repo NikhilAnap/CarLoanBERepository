@@ -35,4 +35,8 @@ public interface CustomerService {
 
 	public void sendSanctionLetter(int customerId);
 
+	public void saveDisbusment(int customerId);
+
+	public void updateDisbusmentStatus(int customerId);
+
 }
